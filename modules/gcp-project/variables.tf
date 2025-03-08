@@ -1,4 +1,4 @@
-#------ modules/gcp-terraform-challenge/variables.tf ------#
+#------ modules/gcp-project/variables.tf ------#
 
 
 variable "project_name_in" {}

@@ -1,4 +1,4 @@
-#------ modules/gcp-terraform-challenge/main.tf ---------
+#------ modules/gcp-project/main.tf ---------
 
 
 # This creates a Google Cloud Project with the specified parameters.
