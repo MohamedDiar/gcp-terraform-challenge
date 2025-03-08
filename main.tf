@@ -14,4 +14,12 @@ module "gcp_project" {
 # Module for GCP BigQuery
 module "gcp_bigquery" {
   source = "./modules/gcp-bigquery"
+
+  project_id_in                   = module.gcp_project.project_id_out
+  dataset_staging_id_in           = var.dataset_staging_id
+  dataset_mart_id_in              = var.dataset_mart_id
+  dataset_location_in             = var.dataset_location
+  service_account_id_in           = var.service_account_id
+  download_service_account_key_in = var.download_service_account_key
+  service_account_key_path_in     = var.service_account_key_path
 }

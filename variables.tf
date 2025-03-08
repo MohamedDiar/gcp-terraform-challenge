@@ -36,3 +36,42 @@ variable "deletion_policy" {
   type        = string
   default     = "DELETE"
 }
+
+
+#---------- BIG QUERY VARIABLES ------------
+
+variable "dataset_staging_id" {
+  description = "ID for the staging dataset"
+  type        = string
+  default     = "staging_dataset_bitcoin"
+}
+
+variable "dataset_mart_id" {
+  description = "ID for the data mart dataset"
+  type        = string
+  default     = "mart_dataset_bitcoin_cash"
+}
+
+variable "dataset_location" {
+  description = "Location for the BigQuery datasets"
+  type        = string
+  default     = "US"
+}
+
+variable "service_account_id" {
+  description = "ID for the BigQuery service account"
+  type        = string
+  default     = "bigquery-service-account"
+}
+
+variable "download_service_account_key" {
+  description = "Whether to download the service account key"
+  type        = bool
+  default     = true
+}
+
+variable "service_account_key_path" {
+  description = "Path to save the service account key"
+  type        = string
+  default     = "~/.dbt/service-account-key.json"
+}
