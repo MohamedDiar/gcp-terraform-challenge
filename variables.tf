@@ -11,7 +11,7 @@ variable "project_name" {
 variable "project_id" {
   description = "The ID of the GCP project to create"
   type        = string
-
+  default = "astrafy-challenge-0001"
 }
 
 variable "billing_account" {
@@ -67,7 +67,7 @@ variable "service_account_id" {
 variable "download_service_account_key" {
   description = "Whether to download the service account key"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "service_account_key_path" {
