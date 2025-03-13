@@ -9,11 +9,11 @@ This repository provides a Terraform module to easily set up the following BigQu
 1.  **Google Cloud Project:** Creates a new GCP project (optional, you can use an existing project).
 2.  **BigQuery Datasets:** Provisions two datasets:
     *   `staging_dataset_bitcoin`: Designed for staging data before transformation.
-    *   `mart_dataset_bitcoin_cash`: Intended for your data mart, holding transformed and optimized data.
+    *   `mart_dataset_bitcoin_cash`: Intended for the data mart table.
 3.  **Service Account:** Creates a dedicated service account (`bigquery-service-account`) with the necessary permissions to interact with BigQuery:
     *   `roles/bigquery.jobUser`:  Allows the service account to run BigQuery jobs (queries, loads, etc.) within the project.
     *   `roles/bigquery.dataEditor`: Grants the service account permission to create, modify, and delete tables within both the staging and mart datasets.
-4.  **Service Account Key (Optional):**  Provides an option to download the service account key file (disabled by default). This is crucial for applications like dbt that need to authenticate with BigQuery.
+4.  **Service Account Key (Optional):**  I provided an option to download the service account key file (disabled by default). This is crucial for applications like dbt that need to authenticate with BigQuery.
 
 ## Prerequisites
 
@@ -26,12 +26,12 @@ Before using this module, ensure you have the following:
     *   **Authentication:** Authenticate `gcloud` with an account that has sufficient permissions to create projects, service accounts, and BigQuery resources.  The "Project Owner" role is generally sufficient. 
 
     *   **Application Default Credentials:**  Set up Application Default Credentials so Terraform can authenticate:
-    
+
         ```bash
         gcloud auth application-default login
         ```
 
-3.  **Terraform:** Terraform version 1.3 or later installed on your system. Installation instructions: [Install Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli).
+3.  **Terraform:** Terraform version 1.3 or later installed on your system. Installation instructions: [Install Terraform](https://developer.hashicorp.com/terraform/install).
 
 ## Usage
 
@@ -44,7 +44,7 @@ Before using this module, ensure you have the following:
 
 2.  **Terraform Backend (Choose One):**
 
-    *   **Terraform Cloud (Default) or cloud backend such as AWS s3 or GCP GCS:** I used Terraform Cloud as a remote backend.  Ensure you are logged in to Terraform Cloud if you want to use it. [HCP Terraform Cloud](https://developer.hashicorp.com/hcp) :
+    *   **Terraform Cloud (Default) or cloud backend such as AWS s3 or GCP GCS:** I used Terraform Cloud as a remote backend. Ensure you are logged in to Terraform Cloud if you want to use it. [HCP Terraform Cloud](https://developer.hashicorp.com/hcp) :
 
         ```bash
         terraform login
@@ -109,17 +109,17 @@ Before using this module, ensure you have the following:
     terraform destroy
     ```
 
-    **Important:** If `deletion_policy` is set to `"DELETE"` (the default), this will *permanently delete* the GCP project and all its contents.
+    **Important:** If `deletion_policy` for the GCP project module is set to `"DELETE"` (the default), this will *permanently delete* the GCP project and all its contents.
 
 ## Important Notes
 
-*   **Service Account Key Download (dbt Users):**  The `download_service_account_key` variable controls whether the service account key is downloaded.  By default, it's `false`. For dbt integration, set it to `true` and configure `service_account_key_path` to match your dbt profile (typically `~/.dbt/profiles.yml`).  **Store the downloaded key file securely; it grants access to your BigQuery data.**
+*   **Service Account Key Download (dbt Users):**  The `download_service_account_key` variable controls whether the service account key is downloaded.  By default, it's `false`. For dbt integration, set it to `true` and if you plan to have it in `~/.dbt` path then leave the default `service_account_key_path`. If you want to save it to another path, then change it.  **Store the downloaded key file securely; it grants access to your BigQuery.**
 
-*   **Deletion Policy:** Understand the `deletion_policy` variable.  The default (`"DELETE"`) means `terraform destroy` will delete the project.  Change it to `"PREVENT"` to avoid accidental project deletion.
+*   **Deletion Policy:** Understand the `deletion_policy` variable.  The default (`"DELETE"`) means `terraform destroy` will delete the project.  Change it to `"PREVENT"` or `"null"` (deletion_policy is prevent by default) to avoid accidental project deletion.
 
 *   **Project ID Uniqueness:** Your `project_id` *must* be globally unique.  If you encounter an error during `terraform apply` indicating the ID is already in use, choose a different one.
 
-*   **Billing Account:** If you don't provide a `billing_account`, the project will be created, but you migh be restricted in terms ostorage for GCP BigQuery.
+*   **Billing Account:** If you don't provide a `billing_account`, the project will be created, but you migh be restricted in terms of storage for GCP BigQuery.
 
 *   **Resource Naming:**  The default names (datasets, service account) are suggestions.  Customize them in `variables.tf` as needed (adjust dbt project as needed).
 
