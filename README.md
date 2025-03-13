@@ -40,8 +40,8 @@ Before using this module, ensure you have the following:
 1.  **Clone the Repository:**
 
     ```bash
-    git clone https://github.com/MohamedDiar/gcp-terraform-challenge  
-    cd https://github.com/MohamedDiar/gcp-terraform-challenge
+    git clone https://github.com/MohamedDiar/gcp-terraform-challenge.git 
+    cd https://github.com/MohamedDiar/gcp-terraform-challenge.git
     ```
 
 2.  **Terraform Backend (Choose One):**
@@ -53,8 +53,7 @@ Before using this module, ensure you have the following:
         ```
 
     *   **Local Backend (Alternative):** If you prefer to manage state locally, comment out the `cloud` block in `backends.tf` and uncomment the `local` backend configuration.  Adjust the `path` in the `local` block if necessary.
-
-3.        
+       
 3.  **Customize Variables:**
 
     You can customize the module's behavior by modifying the default variable values.  While you can directly edit the `variables.tf` file in the root directory, the recommended approach is to create a separate `terraform.tfvars` file (or a file with a `.tfvars` extension, like `my-project.tfvars`) to override the defaults.  This keeps your customizations separate from the module's core code and makes updates easier.
@@ -83,10 +82,11 @@ Before using this module, ensure you have the following:
     download_service_account_key = true
     ```
 
-    When you run `terraform apply`, Terraform automatically loads variables from `terraform.tfvars`.  If you use a different filename (e.g., `my-project.tfvars`), you'll need to specify it using the `-var-file` option:
+    When you run `terraform plan`, Terraform automatically loads variables from `terraform.tfvars`.  If you use a different filename (e.g., `my-project.tfvars`), you'll need to specify it using the `-var-file` option:
 
     ```bash
-    terraform apply -var-file=my-project.tfvars
+    terraform plan -var-file=my-project.tfvars
+    terraform apply
     ```
 
     
@@ -97,6 +97,7 @@ Before using this module, ensure you have the following:
 
     ```bash
     terraform init
+    terraform plan
     terraform apply
     ```
 
