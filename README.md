@@ -23,12 +23,10 @@ Before using this module, ensure you have the following:
 
 2.  **Google Cloud SDK (gcloud):** The `gcloud` command-line interface installed and configured.  Follow the installation instructions for your operating system: [Install the Google Cloud SDK](https://cloud.google.com/sdk/docs/install).
 
-    *   **Authentication:** Authenticate `gcloud` with an account that has sufficient permissions to create projects, service accounts, and BigQuery resources.  The "Project Owner" role is generally sufficient. If you are creating a *new* project, you will also need permissions at the organization or folder level:
-        *   `resourcemanager.projects.create`
-        *   `billing.resourceAssociations.create` (if you are associating a billing account during project creation)
+    *   **Authentication:** Authenticate `gcloud` with an account that has sufficient permissions to create projects, service accounts, and BigQuery resources.  The "Project Owner" role is generally sufficient. 
 
     *   **Application Default Credentials:**  Set up Application Default Credentials so Terraform can authenticate:
-
+    
         ```bash
         gcloud auth application-default login
         ```
